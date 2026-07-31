@@ -27,3 +27,44 @@ plt.title('Salary Package vs CGPA')
 plt.xlabel('CGPA')
 plt.ylabel('Salary Package')
 plt.show()
+
+print("===============================================================================")
+
+target = 'PlacementStatus'
+features = ['CGPA', 'Internships', 'Projects', 'CodingTestScore', 'AttendancePercent', 'MockInterviewScore', 'Salary Package']
+
+X = df[features]
+y = df[target]
+
+print(X.shape, y.shape)
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+print("X_train shape:", X_train.shape)
+print("X_test shape :", X_test.shape)
+print("y_train shape:", y_train.shape)
+print("y_test shape :", y_test.shape)
+
+print("===============================================================================")
+
+# Mean
+mean = df['CGPA'].mean()
+print("Mean:", mean)
+
+# Median
+median = df['CGPA'].median()
+print("Median:", median)
+
+# Mode
+mode = df['CGPA'].mode()
+print("Mode:", mode.tolist())
+
+print("===============================================================================")
+
+df.dtypes
+
+num_cols = df.select_dtypes(include='number').columns
+obj_cols = df.select_dtypes(include=['object']).columns
+
+df['CGPA_Category'] = pd.cut(df['CGPA'], bins=[0,6,8,10], labels=['low', 'medium', 'high'], ordered=True)
+print(df[['CGPA', 'CGPA_Category']].head())
