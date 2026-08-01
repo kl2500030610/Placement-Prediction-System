@@ -68,3 +68,25 @@ obj_cols = df.select_dtypes(include=['object']).columns
 
 df['CGPA_Category'] = pd.cut(df['CGPA'], bins=[0,6,8,10], labels=['low', 'medium', 'high'], ordered=True)
 print(df[['CGPA', 'CGPA_Category']].head())
+
+df['CGPA'].describe()
+sns.histplot(df['CGPA'])
+plt.show()
+
+from scipy import stats
+stats.ttest_ind(
+    df[df.PlacementStatus=='Yes']['CGPA'],
+    df[df.PlacementStatus=='No']['CGPA']
+)
+
+df['CGPA'].max() - df['CGPA'].min()
+
+df['CGPA'].var()
+df['CGPA'].std()
+q1 , q3 = df['CGPA'].quantile([0.25 , 0.75])
+iqr = q3 - q1
+print("\nSummary Statistics:")
+print(df['CGPA'].describe())
+
+print("===============================================================================")
+
